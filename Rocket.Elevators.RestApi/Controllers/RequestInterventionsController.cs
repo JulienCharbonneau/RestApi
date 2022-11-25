@@ -22,11 +22,11 @@ namespace Rocket.Elevators.RestApi.Controllers
         }
 
 
-        // Get request intervention not pending
+        // Get request intervention  pending
            [HttpGet]
-        public IEnumerable<RequestIntervention> GetAllInterventionNotPending()
+        public IEnumerable<RequestIntervention> GetAllInterventionPending()
         {
-            return _context.RequestInterventions.Where(i => !i.status.Equals("Pending"));
+            return _context.RequestInterventions.Where(i => !i.status.Equals("Pending") );
         }
 
        
