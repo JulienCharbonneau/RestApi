@@ -26,7 +26,7 @@ namespace Rocket.Elevators.RestApi.Controllers
            [HttpGet]
         public IEnumerable<RequestIntervention> GetAllInterventionPending()
         {
-            return _context.RequestInterventions.Where(i => !i.status.Equals("Pending") );
+            return _context.RequestInterventions.Where(i => i.status.Equals("Pending") && i.start_date == null);
         }
 
        
