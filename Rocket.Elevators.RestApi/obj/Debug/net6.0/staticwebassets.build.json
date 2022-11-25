@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "ir1craspDUHA7GaxTR4uTpTpK4fy/bgdoH8dik2ifDQ=",
+  "Source": "Rocket.Elevators.RestApi",
+  "BasePath": "_content/Rocket.Elevators.RestApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
