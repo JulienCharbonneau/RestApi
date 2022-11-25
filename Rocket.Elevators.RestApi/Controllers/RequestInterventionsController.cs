@@ -21,22 +21,6 @@ namespace Rocket.Elevators.RestApi.Controllers
             _context = context;
         }
 
-        // GET: api/RequestInterventions
-        // [HttpGet]
-        // public async Task<ActionResult<IEnumerable<RequestIntervention>>> GetRequestInterventions()
-        // {
-        //     return await _context.RequestInterventions.ToListAsync();
-        // }
-
-         [HttpGet]
-        public string GetRequestInterventionStatusById(long id)
-        {
-
-            var status = _context.RequestInterventions.Where(i => i.Id.Equals(id)).Select(x => x.status)?.FirstOrDefault();
-
-            return String.IsNullOrEmpty(status) ? "" : status;
-
-        }
 
         // Get request intervention not pending
            [HttpGet]
@@ -45,81 +29,40 @@ namespace Rocket.Elevators.RestApi.Controllers
             return _context.RequestInterventions.Where(i => !i.status.Equals("Pending"));
         }
 
-        // GET: api/RequestInterventions/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<RequestIntervention>> GetRequestIntervention(long id)
-        {
-            var requestIntervention = await _context.RequestInterventions.FindAsync(id);
-
-            if (requestIntervention == null)
-            {
-                return NotFound();
-            }
-
-            return requestIntervention;
-        }
+       
 
         // PUT: api/RequestInterventions/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutRequestIntervention(long id, RequestIntervention requestIntervention)
+        [HttpPut]
+          public void UpdateStatusRequestInterventionInProgress(long id)
         {
-            if (id != requestIntervention.Id)
-            {
-                return BadRequest();
-            }
+            var requestIntervention = _context.RequestInterventions.Single(i => i.Id.Equals(id));
 
-            _context.Entry(requestIntervention).State = EntityState.Modified;
-
-            try
+            if (requestIntervention is not null)
             {
-                await _context.SaveChangesAsync();
+                requestIntervention.status = "InProgress";
+                DateTime now = DateTime.Now;
+                requestIntervention.start_date = now.ToString("F");
+                _context.SaveChanges();
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!RequestInterventionExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
         }
 
-        // POST: api/RequestInterventions
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<RequestIntervention>> PostRequestIntervention(RequestIntervention requestIntervention)
-        {
-            _context.RequestInterventions.Add(requestIntervention);
-            await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetRequestIntervention", new { id = requestIntervention.Id }, requestIntervention);
-        }
-
-        // DELETE: api/RequestInterventions/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRequestIntervention(long id)
+         [HttpPut]
+          public void UpdateStatusRequestInterventionCompleted(long id)
         {
-            var requestIntervention = await _context.RequestInterventions.FindAsync(id);
-            if (requestIntervention == null)
+            var requestIntervention = _context.RequestInterventions.Single(i => i.Id.Equals(id));
+
+            if (requestIntervention is not null)
             {
-                return NotFound();
+                requestIntervention.status = "Completed";
+                DateTime now = DateTime.Now;
+                requestIntervention.end_date = now.ToString("F");
+                _context.SaveChanges();
             }
-
-            _context.RequestInterventions.Remove(requestIntervention);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
         }
 
-        private bool RequestInterventionExists(long id)
-        {
-            return _context.RequestInterventions.Any(e => e.Id == id);
-        }
+       
+
     }
 }
