@@ -16,6 +16,11 @@ namespace Rocket.Elevators.RestApi.Infra.Context
         public DbSet<Building> Buildings { get; set; }
         public DbSet<Lead> Leads { get; set; }
         public DbSet<Customer> Customers { get; set; }
+
+        public DbSet<RequestIntervention> RequestInterventions { get; set; }
+
+
+        
        
     }
 }
