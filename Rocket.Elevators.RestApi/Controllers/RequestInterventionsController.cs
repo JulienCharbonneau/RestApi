@@ -56,6 +56,7 @@ namespace Rocket.Elevators.RestApi.Controllers
             if (requestIntervention is not null)
             {
                 requestIntervention.status = "Completed";
+                requestIntervention.result = "completed";
                 DateTime now = DateTime.Now;
                 requestIntervention.end_date = now.ToString("F");
                 _context.SaveChanges();
