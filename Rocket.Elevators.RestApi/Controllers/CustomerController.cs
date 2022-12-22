@@ -21,9 +21,9 @@ namespace Rocket.Elevators.RestApi.Controllers
             _mySqlContext = context;
         }
 
-        // GET: Select
+        // https://localhost:7047/api/Customer/GetAuthenticationCustomerByEmail
         [HttpGet]
-        public string GetCustomerByEmail(string input_email)
+        public string GetAuthenticationCustomerByEmail(string input_email)
         {
             string customer_is_on_database = null;
 
@@ -39,6 +39,23 @@ namespace Rocket.Elevators.RestApi.Controllers
                 }
     
             return  customer_is_on_database;
+
+        }
+
+
+ // https://localhost:7047/api/Customer/GetCustomerIdByEmail
+        [HttpGet]
+        public long GetCustomerIdByEmail(string input_email)
+        {
+
+
+
+            var customer_id = _mySqlContext.Customers.Where(c => c.ContactEmail == input_email).Select(x => x.Id)?.FirstOrDefault();
+
+            Console.WriteLine("test: " + customer_id);
+             
+    
+            return (long)customer_id;
 
         }
 
