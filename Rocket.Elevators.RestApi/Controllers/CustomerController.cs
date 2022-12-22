@@ -3,6 +3,9 @@ using Castle.Core.Internal;
 using Microsoft.AspNetCore.Mvc;
 using Rocket.Elevators.RestApi.Infra.Context;
 using Rocket.Elevators.RestApi.Model;
+using Microsoft.EntityFrameworkCore;
+using System.Xml.Linq;
+
 
 namespace Rocket.Elevators.RestApi.Controllers
 {
@@ -22,22 +25,25 @@ namespace Rocket.Elevators.RestApi.Controllers
         [HttpGet]
         public string GetCustomerByEmail(string input_email)
         {
-            var customer_is_on_database = "";
-            var customer = _mySqlContext.Customers.Where(c => c.ContactEmail == input_email);
+            string customer_is_on_database = null;
 
-                if (customer.IsNullOrEmpty() ) {
+
+            var customer_id = _mySqlContext.Customers.Where(c => c.ContactEmail == input_email).Select(x => x.Id)?.FirstOrDefault();
+            Console.WriteLine("test: " + customer_id);
+                if (customer_id != 0 ) {
                     customer_is_on_database = "true";
                 }
                 else {
                     customer_is_on_database = "false";
 
                 }
-
+    
             return  customer_is_on_database;
 
         }
 
        
+
      
 
      
