@@ -26,9 +26,9 @@ namespace Rocket.Elevators.RestApi.Controllers
         }
 
         [HttpGet]
-        public Building GetBuildingById(long id)
+        public Building GetBuildingByCustomerId(long id)
         {
-            return _mySqlContext.Buildings.Single(i => i.Id.Equals(id));
+            return _mySqlContext.Buildings.Single(i => i.CustomerId.Equals(id));
         }
 
         [HttpGet]
