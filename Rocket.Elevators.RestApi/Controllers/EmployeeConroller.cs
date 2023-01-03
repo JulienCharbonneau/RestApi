@@ -16,6 +16,8 @@ namespace Rocket.Elevators.RestApi.Controllers
             _mySqlContext = context;
         }
 
+
+        // https://localhost:7047/api/Employee/CheckEmail
         [HttpGet]
         public bool CheckEmail(string email)
         {

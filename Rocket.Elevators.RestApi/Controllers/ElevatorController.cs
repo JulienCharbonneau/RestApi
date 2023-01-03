@@ -15,7 +15,7 @@ namespace Rocket.Elevators.RestApi.Controllers
             _mySqlContext = context;
         }
 
-        // GET: Select
+        // https://localhost:7047/api/Elevator/GetElevatorStatusById
         [HttpGet]
         public string GetElevatorStatusById(long id)
         {
@@ -24,7 +24,7 @@ namespace Rocket.Elevators.RestApi.Controllers
             return String.IsNullOrEmpty(status) ? "" : status;
         }
 
-       
+      // https://localhost:7047/api/Elevator/UpdateStatusElevatorById
         [HttpPost]
         public void UpdateStatusElevatorById(long id, string status)
         {
@@ -36,7 +36,7 @@ namespace Rocket.Elevators.RestApi.Controllers
                 _mySqlContext.SaveChanges();
             }
         }
-
+        // https://localhost:7047/api/Elevator/GetAllElevatorStatusNotOperation
         [HttpGet]
         public IEnumerable<Elevator> GetAllElevatorStatusNotOperation()
         {
