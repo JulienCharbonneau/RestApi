@@ -24,9 +24,9 @@ namespace Rocket.Elevators.RestApi.Controllers
             return String.IsNullOrEmpty(status) ? "" : status;
         }
 
-      // https://localhost:7047/api/Elevator/UpdateStatusElevatorById
+        // https://localhost:7047/api/Elevator/UpdateStatusElevatorById
         [HttpPost]
-        public void UpdateStatusElevatorById(long id, string status)
+        public Elevator UpdateStatusElevatorById(long id, string status)
         {
             var elevator = _mySqlContext.Elevators.Single(i => i.Id.Equals(id));
 
@@ -35,7 +35,12 @@ namespace Rocket.Elevators.RestApi.Controllers
                 elevator.Status = status;
                 _mySqlContext.SaveChanges();
             }
+            return elevator;
         }
+
+
+
+
         // https://localhost:7047/api/Elevator/GetAllElevatorStatusNotOperation
         [HttpGet]
         public IEnumerable<Elevator> GetAllElevatorStatusNotOperation()
